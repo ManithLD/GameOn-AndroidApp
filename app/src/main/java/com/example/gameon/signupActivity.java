@@ -1,5 +1,6 @@
 package com.example.gameon;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,7 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class signupActivity extends AppCompatActivity {
 
@@ -25,11 +32,14 @@ public class signupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView backToLogin;
     private Button buttonRegister;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         progressBar = findViewById(R.id.progressBar);
         editTextRegisterEmail = findViewById(R.id.editText_register_email);
@@ -147,6 +157,32 @@ public class signupActivity extends AppCompatActivity {
     }
 
     private void registerUser(String textEmail, String textPwd) {
+        firebaseAuth.createUserWithEmailAndPassword(textEmail, textPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    //Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_LONG).show();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+                    if (firebaseUser != null) {
+                        firebaseUser.sendEmailVerification();
+                        firebaseAuth.signOut();
+                        Toast.makeText(signupActivity.this, "Successful! Please verify your email", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(signupActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                        progressBar.setVisibility(View.GONE);
+                    }
+                } else {
+                    try {
+                        throw task.getException();
+                    } catch (Exception e) {
+                        Toast.makeText(signupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 }

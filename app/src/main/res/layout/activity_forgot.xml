@@ -56,6 +56,7 @@
         app:boxStrokeErrorColor="@color/secondary"
         app:errorTextAppearance="@style/error_appearance"
         android:layout_marginRight="30dp"
+        app:hintEnabled="true"
         android:textColorHint="@color/primary">
 
         <com.google.android.material.textfield.TextInputEditText
