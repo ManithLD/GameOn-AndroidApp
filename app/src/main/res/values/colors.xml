@@ -5,4 +5,5 @@
     <color name="background">#0F222D</color>
     <color name="primary">#FFF5D0</color>
     <color name="secondary">#F55139</color>
+    <color name="icon_background">#3b6e8c</color>
 </resources>
