@@ -2,6 +2,9 @@ package com.example.gameon;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -30,12 +33,10 @@ public class homeActivity extends AppCompatActivity {
     private ImageView logout;
     private FirebaseAuth auth;
     FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
 
-    FirestoreRecyclerAdapter<firebasemodel, workoutViewHolder> workoutAdapater;
+    workoutAdapter adapter;
     FloatingActionButton addWorkoutButton;
-    RecyclerView recyclerView;
-    StaggeredGridLayoutManager staggeredGridLayoutManager;
+
     BottomNavigationView nav;
 
     @Override
@@ -44,12 +45,36 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         nav = findViewById(R.id.bottomNavigationView);
+        replaceFragment(new homeFragment());
         nav.setBackground(null);
+        TextView title = findViewById(R.id.topTitle);
+
+        nav.setOnItemSelectedListener(item -> {
+            switch (item.getTitle().toString()) {
+                case "Home":
+                    replaceFragment(new homeFragment());
+                    title.setText("Home");
+                    break;
+                case "Health":
+                    replaceFragment(new healthFragment());
+                    title.setText("Health");
+                    break;
+                case "Clock":
+                    replaceFragment(new clockFragment());
+                    title.setText("Clock");
+                    break;
+                case "Schedule":
+                    replaceFragment(new scheduleFragment());
+                    title.setText("Schedule");
+                    break;
+
+            }
+
+            return true;
+        });
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
         addWorkoutButton = findViewById(R.id.addWorkout);
         logout = findViewById(R.id.logoutButton);
 
@@ -68,68 +93,12 @@ public class homeActivity extends AppCompatActivity {
                 startActivity(new Intent(homeActivity.this, addWorkout.class));
             }
         });
-
-        Query query = firebaseFirestore.collection("workouts")
-                .document(firebaseUser.getUid()).collection("myWorkouts")
-                .orderBy("title", Query.Direction.ASCENDING);
-        FirestoreRecyclerOptions<firebasemodel> alluserworkouts = new FirestoreRecyclerOptions
-                .Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
-
-        workoutAdapater = new FirestoreRecyclerAdapter<firebasemodel, workoutViewHolder>(alluserworkouts) {
-            @Override
-            protected void onBindViewHolder(@NonNull workoutViewHolder holder, int position, @NonNull firebasemodel model) {
-                holder.workoutTitle.setText(model.getTitle());
-                holder.workoutContent.setText(model.getContent());
-            }
-            @NonNull
-            @Override
-            public workoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_layout, parent, false);
-                return new workoutViewHolder(view);
-            }
-        };
-
-        recyclerView = findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        recyclerView.setAdapter(workoutAdapater);
-
-
     }
 
-
-    public class workoutViewHolder extends RecyclerView.ViewHolder {
-        private TextView workoutTitle;
-        private TextView workoutContent;
-        LinearLayout workout;
-        public workoutViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            workoutTitle = itemView.findViewById(R.id.workoutTitle);
-            workoutContent = itemView.findViewById(R.id.workoutContent);
-            workout = itemView.findViewById(R.id.workout);
-        }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        workoutAdapater.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (workoutAdapater != null) {
-            workoutAdapater.stopListening();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        workoutAdapater.notifyDataSetChanged();
-    }
-
 }

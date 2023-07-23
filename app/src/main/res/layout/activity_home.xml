@@ -7,16 +7,25 @@
     android:background="@color/background"
     tools:context=".homeActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_layout"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/coordLayout"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/topBar"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentTop="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Home"
+            android:id="@+id/topTitle"
             android:textColor="@color/primary"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
@@ -40,10 +49,7 @@
         android:id="@+id/coordLayout"
         android:layout_alignParentBottom="true"
         tools:context=".MainActivity">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frame_layout"/>
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,15 +84,5 @@
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/transparent"
-        android:layout_below="@id/topBar"
-        android:layout_above="@id/coordLayout">
-    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

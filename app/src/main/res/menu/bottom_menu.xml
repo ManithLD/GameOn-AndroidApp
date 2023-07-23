@@ -14,17 +14,17 @@
     <item
         android:id="@+id/fab"
         android:title=""
-        android:enabled="true"/>
-
-    <item
-        android:id="@+id/calendar"
-        android:title="Calendar"
-        android:icon="@drawable/ic_calendar"/>
+        android:enabled="false"/>
 
     <item
         android:id="@+id/clock"
         android:title="Clock"
         android:icon="@drawable/ic_timer"/>
+
+    <item
+        android:id="@+id/calendar"
+        android:title="Schedule"
+        android:icon="@drawable/ic_calendar"/>
 
 
 </menu>
