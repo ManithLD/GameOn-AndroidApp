@@ -6,4 +6,24 @@
     <color name="primary">#FFF5D0</color>
     <color name="secondary">#F55139</color>
     <color name="icon_background">#3b6e8c</color>
+
+    <color name="ivory">#FFFFF0</color>
+    <color name="lightgreen">#CFFFA5</color>
+    <color name="skyblue">#A7C5EB</color>
+    <color name="pink">#F3E6E3</color>
+    <color name="lightpink">#EFBBCF</color>
+    <color name="weirdpink">#D6B0B1</color>
+    <color name="ligthergreen">#CCF6C8</color>
+    <color name="lightorange">#FFE0AC</color>
+    <color name="lightpurple">#E5CFE5</color>
+    <color name="light_salmon">#FFA07A</color>
+    <color name="light_goldenrod_yellow">#FAFAD2</color>
+    <color name="light_coral">#F08080</color>
+    <color name="light_cyan">#E0FFFF</color>
+    <color name="light_grey">#D3D3D3</color>
+    <color name="light_steel_blue">#B0C4DE</color>
+    <color name="light_slate_gray">#778899</color>
+    <color name="light_sea_green">#20B2AA</color>
+
+
 </resources>

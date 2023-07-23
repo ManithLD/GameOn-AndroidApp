@@ -13,6 +13,12 @@
         android:theme="@style/Theme.GameOn"
         tools:targetApi="31">
         <activity
+            android:name=".noteDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".editWorkoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".addWorkout"
             android:exported="false" />
         <activity

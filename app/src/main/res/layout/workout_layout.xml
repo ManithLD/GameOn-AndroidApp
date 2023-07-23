@@ -31,18 +31,18 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingRight="10dp"
-                    android:text="Hello World"
+                    android:text="Title"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:background="@color/primary">
+                    android:paddingLeft="10dp">
                 </TextView>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/menuButton"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="0"
                     android:src="@drawable/ic_menu"/>
 
@@ -56,10 +56,9 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
-                android:text="Text woooooo"
+                android:text="Content"
                 android:textSize="15sp"
-                android:textColor="@color/black"
-                android:background="@color/secondary"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 

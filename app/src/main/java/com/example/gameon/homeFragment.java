@@ -47,7 +47,7 @@ public class homeFragment extends Fragment {
         FirestoreRecyclerOptions<firebasemodel> alluserworkouts = new FirestoreRecyclerOptions
                 .Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
-        adapter = new workoutAdapter(alluserworkouts);
+        adapter = new workoutAdapter(alluserworkouts, this.getContext());
 
         recyclerView = root.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
