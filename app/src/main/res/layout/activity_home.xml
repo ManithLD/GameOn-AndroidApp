@@ -34,33 +34,59 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/coordLayout"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="bottom|end"
-        android:id="@+id/addWorkout"
-        android:backgroundTint="@color/secondary"
-        app:rippleColor="@color/primary"
-        android:src="@drawable/ic_upload"
-        app:maxImageSize="40dp">
+        tools:context=".MainActivity">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frame_layout"/>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomAppBar"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/background">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottomNavigationView"
+                android:layout_marginEnd="20dp"
+                app:labelVisibilityMode="labeled"
+                app:itemTextColor="@color/primary"
+                app:itemIconTint="@color/primary"
 
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                android:background="@android:color/transparent"
+                app:menu="@menu/bottom_menu"/>
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/addWorkout"
+            android:backgroundTint="@color/secondary"
+            app:rippleColor="@color/primary"
+            android:src="@drawable/ic_add"
+            app:maxImageSize="40dp">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler"
-        android:layout_below="@id/topBar">
-
-
-
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_below="@id/topBar"
+        android:layout_above="@id/coordLayout">
     </androidx.recyclerview.widget.RecyclerView>
 
-
-        
-    
 </RelativeLayout>

@@ -16,4 +16,8 @@
         <item name="android:textColor">@color/secondary</item>
     </style>
 
+    <style name="bottomTheme" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
 </resources>

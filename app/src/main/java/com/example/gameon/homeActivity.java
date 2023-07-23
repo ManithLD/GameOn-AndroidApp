@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,11 +36,15 @@ public class homeActivity extends AppCompatActivity {
     FloatingActionButton addWorkoutButton;
     RecyclerView recyclerView;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
+    BottomNavigationView nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        nav = findViewById(R.id.bottomNavigationView);
+        nav.setBackground(null);
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
@@ -47,6 +52,7 @@ public class homeActivity extends AppCompatActivity {
 
         addWorkoutButton = findViewById(R.id.addWorkout);
         logout = findViewById(R.id.logoutButton);
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +94,8 @@ public class homeActivity extends AppCompatActivity {
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(workoutAdapater);
+
+
     }
 
 
@@ -104,7 +112,6 @@ public class homeActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -117,6 +124,12 @@ public class homeActivity extends AppCompatActivity {
         if (workoutAdapater != null) {
             workoutAdapater.stopListening();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        workoutAdapater.notifyDataSetChanged();
     }
 
 }
