@@ -27,23 +27,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolBar"
-        android:textSize="15sp"
-        android:textColor="@color/primary"
-        android:textCursorDrawable="@color/primary"
-        android:background="@color/background"
-        android:cursorVisible="true"
-        android:hint="Enter your note workout here"
-        android:textColorHint="@drawable/selector"
-        android:padding="15dp"
-        android:gravity="top|left"
-        android:id="@+id/editContent">
-
-    </EditText>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,5 +42,79 @@
         app:maxImageSize="50dp">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/areafocus"
+        android:textSize="15sp"
+        android:textColor="@color/primary"
+        android:textCursorDrawable="@color/primary"
+        android:background="@color/background"
+        android:cursorVisible="true"
+        android:hint="Enter your description here"
+        android:textColorHint="@drawable/selector"
+        android:padding="15dp"
+        android:gravity="top|left"
+        android:id="@+id/editContent">
+    </EditText>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBar"
+        android:background="@color/background"
+        android:id="@+id/areafocus">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/centerFocus"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/areaHead"
+            android:text="Areas of Focus"
+            android:layout_toRightOf="@id/dart"
+            android:textColor="@color/primary"/>
+
+        <ImageView
+            android:id="@+id/editAOF"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_edit2"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/areaHead"/>
+
+
+        <ImageButton
+            android:id="@+id/dart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/background"
+            android:scaleType="fitCenter"
+            android:layout_above="@id/rvTags"
+            android:src="@drawable/ic_dart"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/areaHead"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/border"/>
+    </RelativeLayout>
+
+
+
 
 </RelativeLayout>
