@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,7 +65,20 @@ public class addWorkout extends AppCompatActivity {
     TextView textAreas;
     //ArrayList<Integer> indicies = new ArrayList<>();
     //ArrayList<String> removedItems = new ArrayList<>();
-    String[] areas = {"ABS", "Biceps", "Legs", "Arm"};
+    String[] areas = {
+            "Chest",
+            "Back",
+            "Shoulders (Deltoids)",
+            "Biceps",
+            "Triceps",
+            "Legs (Quadriceps, Hamstrings, Calves)",
+            "Abdominals (Core)",
+            "Glutes",
+            "Lower Back",
+            "Forearms",
+            "Neck",
+            "Full Body"
+    };
     ArrayList<String> tags = new ArrayList<>();
 
     @Override
@@ -74,6 +88,7 @@ public class addWorkout extends AppCompatActivity {
 
         selectCard = findViewById(R.id.selectCard);
         textAreas = findViewById(R.id.focusText);
+        textAreas.setMovementMethod(new ScrollingMovementMethod());
         selected = new boolean[areas.length];
         selectCard.setOnClickListener(view -> {
             alertBuild();

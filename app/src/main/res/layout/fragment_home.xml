@@ -23,11 +23,35 @@
             app:iconifiedByDefault="false"
             app:queryHint="Search Here..." />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/head1"
+            android:text="My Workout Sets (Coming Soon): [ .. ]"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/searchView"/>
+
+        <TextView
+            android:id="@+id/head2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Workouts:"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/head1"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recycler"
-            android:layout_below="@id/searchView"
+            android:layout_below="@id/head2"
             android:background="@android:color/transparent"
             android:backgroundTint="@android:color/transparent">
         </androidx.recyclerview.widget.RecyclerView>

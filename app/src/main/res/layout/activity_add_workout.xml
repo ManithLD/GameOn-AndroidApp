@@ -99,7 +99,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/selectCard"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             android:layout_below="@id/areaHead"
@@ -116,12 +116,15 @@
                     android:id="@+id/focusText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/imgView"
+                    android:hint="Select Areas of Focus"
                     android:textColor="@color/primary"
                     android:textColorHint="@color/primary"
                     android:textSize="16sp"
-                    android:hint="Select Areas of Focus" />
+                    android:scrollbars="vertical"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -129,6 +132,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/imgView"
                     android:src="@drawable/ic_edit2" />
 
             </RelativeLayout>
@@ -240,7 +244,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="4dp"
             android:id="@+id/setHead"
-            android:text="Reps"
+            android:text="Sets"
             android:layout_toRightOf="@id/sets"
             android:textColor="@color/primary"/>
 
