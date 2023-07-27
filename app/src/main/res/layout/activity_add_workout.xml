@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".addWorkout">
 
     <androidx.appcompat.widget.Toolbar
@@ -45,8 +46,8 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/areafocus"
+        android:layout_height="100dp"
+        android:layout_below="@id/toolBar"
         android:textSize="15sp"
         android:textColor="@color/primary"
         android:textCursorDrawable="@color/primary"
@@ -62,9 +63,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolBar"
+        android:layout_below="@id/editContent"
         android:background="@color/background"
-        android:id="@+id/areafocus">
+        android:id="@+id/areafocus"
+        android:layout_marginTop="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,7 +95,7 @@
             android:layout_toRightOf="@+id/areaHead"/>
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/dart"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -109,12 +111,154 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/areaHead"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/border"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/areafocus"
+        android:background="@color/background"
+        android:id="@+id/difficultyLayout"
+        android:layout_marginTop="15dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/centerDifficulty"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/difficultyHead"
+            android:text="Difficulty Level"
+            android:layout_toRightOf="@id/star"
+            android:textColor="@color/primary"/>
+
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/star"/>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/difficultyHead">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:hint="@string/select">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:id="@+id/auto_complete_text"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/difficultyLayout"
+        android:background="@color/background"
+        android:id="@+id/setsLayout"
+        android:layout_marginTop="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/centerSets"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:id="@+id/repHead"
+            android:text="Reps"
+            android:layout_toRightOf="@id/reps"
+            android:textColor="@color/primary"/>
+
+        <ImageView
+            android:id="@+id/reps"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="70dp"
+            android:background="@color/background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_flex"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:id="@+id/setHead"
+            android:text="Reps"
+            android:layout_toRightOf="@id/sets"
+            android:textColor="@color/primary"/>
+
+        <ImageView
+            android:id="@+id/sets"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/cent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="45dp"
+            android:background="@color/background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_workout"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/cent"/>
+
+        <NumberPicker
+            android:id="@+id/repPicker"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setHead"
+            android:layout_toLeftOf="@id/cent"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"/>
+
+        <NumberPicker
+            android:id="@+id/setPicker"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setHead"
+            android:layout_toRightOf="@id/cent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"/>
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -9,8 +9,13 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -34,14 +39,22 @@ import java.util.Map;
 
 public class addWorkout extends AppCompatActivity implements Adapter.ItemClickListener {
 
-    EditText EditTitle, EditContent;
-    FloatingActionButton saveWorkout;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore firebaseFirestore;
-    ImageView editAOF;
+    private EditText EditTitle, EditContent;
+    private FloatingActionButton saveWorkout;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
+    private ImageView editAOF;
     private Adapter adapter;
     private RecyclerView recyclerView;
+    private String[] item = {getEmojiByUnicode(0x2B50) + " Easy",
+            getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Medium",
+            getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Hard"};
+    private AutoCompleteTextView autoCompleteTextView;
+    private ArrayAdapter<String> adapterItems;
+    private String difficulty;
+    private NumberPicker repPick;
+    private NumberPicker setPick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +72,7 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         editAOF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(addWorkout.this, "clicked", Toast.LENGTH_SHORT).show();
                 //show dialog box!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
@@ -79,6 +93,35 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         tags.add("Back");
         tags.add("Chest");
         tags.add("Biceps");
+
+        autoCompleteTextView = findViewById(R.id.auto_complete_text);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+                String text1 = getEmojiByUnicode(0x2B50) + " Easy";
+                if (TextUtils.equals(item, getEmojiByUnicode(0x2B50) + " Easy")) {
+                    difficulty = getEmojiByUnicode(0x2B50);
+                } else if (TextUtils.equals(item, getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Medium")) {
+                    difficulty = getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50);
+                } else {
+                    difficulty = getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50);
+                }
+                Toast.makeText(addWorkout.this, difficulty, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        repPick = findViewById(R.id.repPicker);
+        repPick.setMinValue(1);
+        repPick.setMaxValue(100);
+        setPick = findViewById(R.id.setPicker);
+        setPick.setMinValue(1);
+        setPick.setMaxValue(50);
+        TextView view = findViewById(R.id.setHead);
+        String reps = Integer.toString(repPick.getValue());
+        //view.setText(String.format(reps));
 
         recyclerView = findViewById(R.id.rvTags);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
@@ -141,5 +184,9 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
         //show dialog box!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 }
