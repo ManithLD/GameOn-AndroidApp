@@ -18,10 +18,7 @@
             android:paddingTop="12dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textCursorDrawable="@color/primary"
             android:textColor="@color/primary"
-            android:cursorVisible="true"
-            android:textColorHint="@drawable/selector"
             android:id="@+id/editTitle"/>
 
     </androidx.appcompat.widget.Toolbar>
@@ -33,12 +30,9 @@
         android:layout_below="@id/toolBarEdit"
         android:layout_marginTop="0dp"
         android:background="@color/background"
-        android:cursorVisible="true"
         android:gravity="top|left"
         android:padding="15dp"
         android:textColor="@color/primary"
-        android:textColorHint="@drawable/selector"
-        android:textCursorDrawable="@color/primary"
         android:textSize="15sp">
 
     </EditText>

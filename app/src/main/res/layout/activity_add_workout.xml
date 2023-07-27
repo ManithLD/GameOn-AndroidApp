@@ -22,7 +22,7 @@
             android:textColor="@color/primary"
             android:hint="Enter your workout title here"
             android:cursorVisible="true"
-            android:textColorHint="@drawable/selector"
+            android:textColorHint="@color/primary"
             android:id="@+id/editWorkoutTitle"/>
 
     </androidx.appcompat.widget.Toolbar>

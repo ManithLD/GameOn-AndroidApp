@@ -7,8 +7,6 @@
         <item name="colorPrimaryDark">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
 
-        <item name="searchViewStyle">@style/CustomSearchViewStyle</item>
-        <item name="android:textSelectHandle">@style/CustomTextSelectHandle</item>
         <item name="android:statusBarColor" tools:targetApi="1">@color/background</item>
     </style>
 
@@ -20,18 +18,6 @@
 
     <style name="bottomTheme" parent="Widget.MaterialComponents.BottomAppBar.Colored">
         <item name="backgroundTint">@android:color/transparent</item>
-    </style>
-
-    <style name="CustomTextSelectHandle">
-        <!-- Customize the color of the text selection handles -->
-        <item name="android:colorControlActivated">@color/primary</item>
-    </style>
-
-    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <!-- Customize the text color of the SearchView -->
-        <item name="android:textColor">@color/secondary</item>
-        <!-- Customize the hint color of the SearchView -->
-        <item name="android:textColorHint">@color/secondary</item>
     </style>
 
 </resources>
