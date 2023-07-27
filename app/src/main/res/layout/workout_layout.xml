@@ -60,6 +60,18 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/workoutDifficulty"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="Difficulty"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

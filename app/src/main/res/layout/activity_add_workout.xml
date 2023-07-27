@@ -86,16 +86,6 @@
             android:textColor="@color/primary"/>
 
         <ImageView
-            android:id="@+id/editAOF"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_edit2"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/areaHead"/>
-
-
-        <ImageView
             android:id="@+id/dart"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -103,18 +93,48 @@
             android:layout_marginLeft="5dp"
             android:background="@color/background"
             android:scaleType="fitCenter"
-            android:layout_above="@id/rvTags"
+            android:layout_above="@id/selectCard"
             android:src="@drawable/ic_dart"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTags"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/selectCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
             android:layout_below="@id/areaHead"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/border"/>
+            android:layout_marginRight="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#363f4a">
+
+                <TextView
+                    android:id="@+id/focusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/primary"
+                    android:textColorHint="@color/primary"
+                    android:textSize="16sp"
+                    android:hint="Select Areas of Focus" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_edit2" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -204,9 +224,10 @@
 
         <ImageView
             android:id="@+id/reps"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginBottom="2dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="70dp"
             android:background="@color/background"
             android:scaleType="fitCenter"

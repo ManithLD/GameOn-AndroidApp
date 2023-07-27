@@ -3,6 +3,7 @@ package com.example.gameon;
 public class firebasemodel {
     private String title;
     private String content;
+    //private int difficulty;
 
     public firebasemodel() {
 
@@ -11,6 +12,7 @@ public class firebasemodel {
     public firebasemodel(String title, String content) {
         this.title = title;
         this.content = content;
+        //this.difficulty = difficulty;
     }
 
     public String getTitle() {
@@ -28,5 +30,13 @@ public class firebasemodel {
     public void setContent(String content) {
         this.content = content;
     }
+
+//    public int getDifficulty() {
+//        return difficulty;
+//    }
+//
+//    public void setDifficulty(int difficulty) {
+//        this.difficulty = difficulty;
+//    }
 }
 

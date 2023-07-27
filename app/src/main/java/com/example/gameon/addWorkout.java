@@ -1,8 +1,10 @@
 package com.example.gameon;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,10 +37,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class addWorkout extends AppCompatActivity implements Adapter.ItemClickListener {
+import io.grpc.Context;
+
+public class addWorkout extends AppCompatActivity {
 
     private EditText EditTitle, EditContent;
     private FloatingActionButton saveWorkout;
@@ -45,21 +51,33 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
     private ImageView editAOF;
-    private Adapter adapter;
-    private RecyclerView recyclerView;
     private String[] item = {getEmojiByUnicode(0x2B50) + " Easy",
             getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Medium",
             getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Hard"};
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
-    private String difficulty;
+    private String difficulty = "";
     private NumberPicker repPick;
     private NumberPicker setPick;
+    boolean[] selected;
+    private MaterialCardView selectCard;
+    TextView textAreas;
+    //ArrayList<Integer> indicies = new ArrayList<>();
+    //ArrayList<String> removedItems = new ArrayList<>();
+    String[] areas = {"ABS", "Biceps", "Legs", "Arm"};
+    ArrayList<String> tags = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
+
+        selectCard = findViewById(R.id.selectCard);
+        textAreas = findViewById(R.id.focusText);
+        selected = new boolean[areas.length];
+        selectCard.setOnClickListener(view -> {
+            alertBuild();
+        });
 
         String titleHint = "Enter your workout title here";
         String contentHint = "Enter your note workout here";
@@ -68,15 +86,6 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         EditTitle = findViewById(R.id.editWorkoutTitle);
         EditContent = findViewById(R.id.editContent);
         saveWorkout = findViewById(R.id.saveWorkout);
-        editAOF = findViewById(R.id.editAOF);
-        editAOF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(addWorkout.this, "clicked", Toast.LENGTH_SHORT).show();
-                //show dialog box!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            }
-        });
 
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -85,14 +94,6 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("ABS");
-        tags.add("Arms");
-        tags.add("Sholders UWU OWO WOOOOW");
-        tags.add("Back");
-        tags.add("Chest");
-        tags.add("Biceps");
 
         autoCompleteTextView = findViewById(R.id.auto_complete_text);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
@@ -123,26 +124,12 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         String reps = Integer.toString(repPick.getValue());
         //view.setText(String.format(reps));
 
-        recyclerView = findViewById(R.id.rvTags);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        adapter = new Adapter(this, tags);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Toast.makeText(addWorkout.this, "clicked", Toast.LENGTH_SHORT).show();
-                //show dialog box!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                return false;
-            }
-        });
-
         saveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = EditTitle.getText().toString();
+                String title = EditTitle.getText().toString() + " " + difficulty;
                 String content = EditContent.getText().toString();
+
 
                 if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
                     Toast.makeText(addWorkout.this, "Both fields are required", Toast.LENGTH_SHORT).show();
@@ -180,10 +167,51 @@ public class addWorkout extends AppCompatActivity implements Adapter.ItemClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
-        //show dialog box!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private void alertBuild() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(addWorkout.this);
+        builder.setTitle("Select The Areas of Focus");
+        builder.setCancelable(false);
+
+        builder.setMultiChoiceItems(areas, selected, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                if (b) {
+                    tags.add(areas[i]);
+                } else {
+                    tags.remove(areas[i]);
+                }
+            }
+        });
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int j = 0; j < tags.size(); j++) {
+                    stringBuilder.append(tags.get(j));
+                    if (j != tags.size() - 1) stringBuilder.append(", ");
+                }
+                textAreas.setText(stringBuilder.toString());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                for (int j = 0; j < selected.length; j++) {
+                    selected[j] = false;
+                    tags.clear();
+                    textAreas.setText("");
+                }
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
     public String getEmojiByUnicode(int unicode){

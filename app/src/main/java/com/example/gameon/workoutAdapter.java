@@ -54,6 +54,7 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
 
         holder.workoutTitle.setText(model.getTitle());
         holder.workoutContent.setText(model.getContent());
+        //holder.workoutDifficulty.setText(model.getDifficulty());
 
         String docId = getSnapshots().getSnapshot(position).getId();
 
@@ -151,12 +152,14 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
     public class workoutViewHolder extends RecyclerView.ViewHolder {
         private TextView workoutTitle;
         private TextView workoutContent;
+        private TextView workoutDifficulty;
         LinearLayout workout;
         public workoutViewHolder(@NonNull View itemView) {
             super(itemView);
 
             workoutTitle = itemView.findViewById(R.id.workoutTitle);
             workoutContent = itemView.findViewById(R.id.workoutContent);
+            workoutDifficulty = itemView.findViewById(R.id.workoutDifficulty);
             workout = itemView.findViewById(R.id.workout);
         }
     }
