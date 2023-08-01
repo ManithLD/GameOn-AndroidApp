@@ -54,7 +54,18 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
 
         holder.workoutTitle.setText(model.getTitle());
         holder.workoutContent.setText(model.getContent());
-        //holder.workoutDifficulty.setText(model.getDifficulty());
+        switch (model.getDifficulty()) {
+            case 1:
+                holder.workoutDifficulty.setText(getEmojiByUnicode(0x2B50));
+                break;
+            case 2:
+                holder.workoutDifficulty.setText(getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50));
+                break;
+            case 3:
+                holder.workoutDifficulty.setText(getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50));
+                break;
+        }
+
 
         String docId = getSnapshots().getSnapshot(position).getId();
 
@@ -115,6 +126,10 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
             }
         });
 
+    }
+
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 
     private int getRandomColor() {

@@ -57,7 +57,7 @@ public class addWorkout extends AppCompatActivity {
             getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Hard"};
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapterItems;
-    private String difficulty = "";
+    private int difficulty = 0;
     private NumberPicker repPick;
     private NumberPicker setPick;
     boolean[] selected;
@@ -93,13 +93,16 @@ public class addWorkout extends AppCompatActivity {
         selectCard.setOnClickListener(view -> {
             alertBuild();
         });
+        textAreas.setOnClickListener(view -> {
+            alertBuild();
+        });
 
         String titleHint = "Enter your workout title here";
         String contentHint = "Enter your note workout here";
 
-
         EditTitle = findViewById(R.id.editWorkoutTitle);
         EditContent = findViewById(R.id.editContent);
+        saveWorkout = findViewById(R.id.saveWorkout);
         saveWorkout = findViewById(R.id.saveWorkout);
 
         Toolbar toolbar = findViewById(R.id.toolBar);
@@ -119,13 +122,13 @@ public class addWorkout extends AppCompatActivity {
                 String item = adapterView.getItemAtPosition(i).toString();
                 String text1 = getEmojiByUnicode(0x2B50) + " Easy";
                 if (TextUtils.equals(item, getEmojiByUnicode(0x2B50) + " Easy")) {
-                    difficulty = getEmojiByUnicode(0x2B50);
+                    difficulty = 1;
                 } else if (TextUtils.equals(item, getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Medium")) {
-                    difficulty = getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50);
+                    difficulty = 2;
                 } else {
-                    difficulty = getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50);
+                    difficulty = 3;
                 }
-                Toast.makeText(addWorkout.this, difficulty, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(addWorkout.this, difficulty, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -135,16 +138,18 @@ public class addWorkout extends AppCompatActivity {
         setPick = findViewById(R.id.setPicker);
         setPick.setMinValue(1);
         setPick.setMaxValue(50);
-        TextView view = findViewById(R.id.setHead);
-        String reps = Integer.toString(repPick.getValue());
+        //TextView view = findViewById(R.id.setHead);
+        //String reps = Integer.toString(repPick.getValue());
         //view.setText(String.format(reps));
 
         saveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = EditTitle.getText().toString() + " " + difficulty;
+                String title = EditTitle.getText().toString();
                 String content = EditContent.getText().toString();
-
+                String aof = textAreas.getText().toString();
+                int reps = repPick.getValue();
+                int sets = setPick.getValue();
 
                 if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
                     Toast.makeText(addWorkout.this, "Both fields are required", Toast.LENGTH_SHORT).show();
@@ -155,6 +160,11 @@ public class addWorkout extends AppCompatActivity {
                     Map<String, Object> workout = new HashMap<>();
                     workout.put("title", title);
                     workout.put("content", content);
+                    workout.put("aof", aof);
+                    workout.put("difficulty", difficulty);
+                    workout.put("reps", reps);
+                    workout.put("sets", sets);
+
 
                     documentReference.set(workout).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

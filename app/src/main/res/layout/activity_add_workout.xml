@@ -121,10 +121,10 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toLeftOf="@id/imgView"
                     android:hint="Select Areas of Focus"
+                    android:scrollbars="vertical"
                     android:textColor="@color/primary"
                     android:textColorHint="@color/primary"
-                    android:textSize="16sp"
-                    android:scrollbars="vertical"/>
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
