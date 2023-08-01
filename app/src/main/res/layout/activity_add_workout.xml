@@ -54,7 +54,7 @@
         android:background="@color/background"
         android:cursorVisible="true"
         android:hint="Enter your description here"
-        android:textColorHint="@drawable/selector"
+        android:textColorHint="@color/primary"
         android:padding="15dp"
         android:gravity="top|left"
         android:id="@+id/editContent">

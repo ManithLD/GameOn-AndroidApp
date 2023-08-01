@@ -53,7 +53,8 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
         holder.workout.setBackgroundColor(holder.itemView.getResources().getColor(colourcode, null));
 
         holder.workoutTitle.setText(model.getTitle());
-        holder.workoutContent.setText(model.getContent());
+        String temp = "Reps: " + Integer.toString(model.getReps()) + "     " + "Sets: " + Integer.toString(model.getSets());
+        holder.workoutContent.setText(temp);
         switch (model.getDifficulty()) {
             case 1:
                 holder.workoutDifficulty.setText(getEmojiByUnicode(0x2B50));
@@ -76,6 +77,10 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
                 Intent intent = new Intent(view.getContext(), noteDetailsActivity.class);
                 intent.putExtra("title", model.getTitle());
                 intent.putExtra("content", model.getContent());
+                intent.putExtra("aof", model.getAof());
+                intent.putExtra("difficulty", model.getDifficulty());
+                intent.putExtra("reps", model.getReps());
+                intent.putExtra("sets", model.getSets());
                 intent.putExtra("workoutId", docId);
 
                 view.getContext().startActivity(intent);
@@ -94,6 +99,10 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
                         Intent intent = new Intent(view.getContext(), editWorkoutActivity.class);
                         intent.putExtra("title", model.getTitle());
                         intent.putExtra("content", model.getContent());
+                        intent.putExtra("aof", model.getAof());
+                        intent.putExtra("difficulty", model.getDifficulty());
+                        intent.putExtra("reps", model.getReps());
+                        intent.putExtra("sets", model.getSets());
                         intent.putExtra("workoutId", docId);
                         view.getContext().startActivity(intent);
                         return false;
