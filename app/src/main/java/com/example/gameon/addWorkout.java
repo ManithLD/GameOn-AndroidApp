@@ -51,7 +51,7 @@ public class addWorkout extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
-    private ImageView editAOF;
+
     private String[] item = {getEmojiByUnicode(0x2B50) + " Easy",
             getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Medium",
             getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + getEmojiByUnicode(0x2B50) + " Hard"};
@@ -153,6 +153,9 @@ public class addWorkout extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
                     Toast.makeText(addWorkout.this, "Both fields are required", Toast.LENGTH_SHORT).show();
+                }  else if (difficulty == 0) {
+                    Toast.makeText(addWorkout.this, "Choose difficulty", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     DocumentReference documentReference = firebaseFirestore
                             .collection("workouts").document(firebaseUser.getUid())
