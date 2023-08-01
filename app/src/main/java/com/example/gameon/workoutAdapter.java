@@ -53,7 +53,7 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
         holder.workout.setBackgroundColor(holder.itemView.getResources().getColor(colourcode, null));
 
         holder.workoutTitle.setText(model.getTitle());
-        String temp = "Reps: " + Integer.toString(model.getReps()) + "     " + "Sets: " + Integer.toString(model.getSets());
+        String temp = model.getContent() + "\nReps: " + Integer.toString(model.getReps()) + "     " + "Sets: " + Integer.toString(model.getSets());
         holder.workoutContent.setText(temp);
         switch (model.getDifficulty()) {
             case 1:
