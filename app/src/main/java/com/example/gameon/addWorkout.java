@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -37,15 +39,37 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.grpc.Context;
 
 public class addWorkout extends AppCompatActivity {
 
+    private String url = "https://api.openai.com/v1/completions";
+    private String accessToken = "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";
+    private Button bGen;
     private EditText EditTitle, EditContent;
     private FloatingActionButton saveWorkout;
     private FirebaseAuth firebaseAuth;
@@ -86,6 +110,10 @@ public class addWorkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
 
+        bGen = findViewById(R.id.bGenerate);
+
+        //Toast.makeText(this, GPT.chatGPT("Who are you?"), Toast.LENGTH_SHORT).show();
+
         selectCard = findViewById(R.id.selectCard);
         textAreas = findViewById(R.id.focusText);
         textAreas.setMovementMethod(new ScrollingMovementMethod());
@@ -104,6 +132,14 @@ public class addWorkout extends AppCompatActivity {
         EditContent = findViewById(R.id.editContent);
         saveWorkout = findViewById(R.id.saveWorkout);
         saveWorkout = findViewById(R.id.saveWorkout);
+
+        bGen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callAPI(EditTitle.getText().toString()); // testing
+            }
+        });
+
 
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -245,4 +281,78 @@ public class addWorkout extends AppCompatActivity {
     public String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
+
+
+    private void callAPI(String query) {
+        // Setting text for the question.
+        // Creating a queue for the request queue.
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        // Creating a JSON object.
+        JSONObject jsonObject = new JSONObject();
+        // Adding params to JSON object.
+        try {
+            jsonObject.put("model", "text-davinci-003");
+            jsonObject.put("prompt", query);
+            jsonObject.put("temperature", 0);
+            jsonObject.put("max_tokens", 100);
+            jsonObject.put("top_p", 1);
+            jsonObject.put("frequency_penalty", 0.0);
+            jsonObject.put("presence_penalty", 0.0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Making JSON object request.
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Getting response message and setting it to text view.
+                            String responseMsg = response.getJSONArray("choices").getJSONObject(0).getString("text");
+                            Log.e("GPT MSG:", responseMsg);
+                            Toast.makeText(addWorkout.this, responseMsg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // Adding on error listener.
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAGAPI", "Error is : " + error.getMessage() + "\n" + error);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                // Adding headers.
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", "Bearer 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");
+                return params;
+            }
+        };
+
+        // Adding retry policy for the request.
+        postRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+                // You can implement your retry logic here if needed.
+            }
+        });
+        // Adding the request to the queue.
+        queue.add(postRequest);
+    }
+
 }

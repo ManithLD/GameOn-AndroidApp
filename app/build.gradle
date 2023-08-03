@@ -42,4 +42,9 @@ dependencies {
 
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
+
+    implementation 'com.android.volley:volley:1.2.1'
+
+    implementation 'com.theokanning.openai-gpt3-java:client:0.8.1'
+    implementation 'com.theokanning.openai-gpt3-java:api:0.8.1'
 }

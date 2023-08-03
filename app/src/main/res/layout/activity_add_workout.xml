@@ -202,88 +202,96 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/setsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/difficultyLayout"
-        android:background="@color/background"
-        android:id="@+id/setsLayout"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:background="@color/background">
 
         <RelativeLayout
+            android:id="@+id/centerSets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/centerSets"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
         <TextView
+            android:id="@+id/repHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"
             android:layout_marginLeft="4dp"
-            android:id="@+id/repHead"
-            android:text="Reps"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@id/reps"
-            android:textColor="@color/primary"/>
+            android:text="Reps"
+            android:textColor="@color/primary"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/reps"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="70dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
             android:background="@color/background"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_flex"/>
+            android:src="@drawable/ic_flex" />
 
         <TextView
+            android:id="@+id/setHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"
             android:layout_marginLeft="4dp"
-            android:id="@+id/setHead"
-            android:text="Sets"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@id/sets"
-            android:textColor="@color/primary"/>
+            android:text="Sets"
+            android:textColor="@color/primary"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/sets"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@id/cent"
-            android:layout_marginBottom="2dp"
             android:layout_marginLeft="45dp"
+            android:layout_marginBottom="2dp"
+            android:layout_toRightOf="@id/cent"
             android:background="@color/background"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_workout"/>
+            android:src="@drawable/ic_workout" />
 
         <RelativeLayout
+            android:id="@+id/cent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/cent"/>
+            android:layout_centerVertical="true" />
 
         <NumberPicker
             android:id="@+id/repPicker"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/setHead"
-            android:layout_toLeftOf="@id/cent"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_toLeftOf="@id/cent" />
 
         <NumberPicker
             android:id="@+id/setPicker"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/setHead"
-            android:layout_toRightOf="@id/cent"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/cent" />
     </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setsLayout"
+        android:text="Generate"
+        android:textColor="@color/secondary"
+        android:id="@+id/bGenerate"/>
 
 
 </RelativeLayout>
