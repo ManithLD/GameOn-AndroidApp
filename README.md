@@ -16,10 +16,12 @@ The Game On! project aims to develop a user-friendly app that offers a straightf
 ## Features
 
 # <img src="app/src/main/res/drawable/pic1.jpg" width="250"> <img src="app/src/main/res/drawable/pic2.jpg" width="250"> <img src="app/src/main/res/drawable/pic3.jpg" width="250"> 
+# <img src="app/src/main/res/drawable/pic4.jpg" width="250"> <img src="app/src/main/res/drawable/pic5.jpg" width="250"> <img src="app/src/main/res/drawable/pic6.jpg" width="250"> 
 
 ### Current Features:
 - User data management via Firebase
 - Add/Edit custom workouts then save them into the user account.
+- Access OpenAI's API to generate workouts
 
 ### Under-development Features:
 - **Track steps and other health data for convenience.**
