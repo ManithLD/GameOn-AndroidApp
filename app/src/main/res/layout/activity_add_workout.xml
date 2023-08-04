@@ -285,13 +285,5 @@
             android:layout_toRightOf="@id/cent" />
     </RelativeLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/setsLayout"
-        android:text="Generate"
-        android:textColor="@color/secondary"
-        android:id="@+id/bGenerate"/>
-
 
 </RelativeLayout>

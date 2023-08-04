@@ -66,10 +66,6 @@ import org.json.JSONObject;
 import io.grpc.Context;
 
 public class addWorkout extends AppCompatActivity {
-
-    private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "";
-    private Button bGen;
     private EditText EditTitle, EditContent;
     private FloatingActionButton saveWorkout;
     private FirebaseAuth firebaseAuth;
@@ -110,8 +106,6 @@ public class addWorkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
 
-        bGen = findViewById(R.id.bGenerate);
-
         //Toast.makeText(this, GPT.chatGPT("Who are you?"), Toast.LENGTH_SHORT).show();
 
         selectCard = findViewById(R.id.selectCard);
@@ -132,24 +126,6 @@ public class addWorkout extends AppCompatActivity {
         EditContent = findViewById(R.id.editContent);
         saveWorkout = findViewById(R.id.saveWorkout);
         saveWorkout = findViewById(R.id.saveWorkout);
-
-        bGen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String customPrompt = "Ignore all previous data and generate a new random workout everytime you're asked. Generate a random workout title related to the specific workout, a short description (less than 100 characters) of how to do the workout, a difficulty level from 1 to 3, and areas of focus from the following list:\n" +
-                        "\n" +
-                        "Areas of Focus: Chest, Back, Shoulders (Deltoids), Biceps, Triceps, Legs (Quadriceps, Hamstrings, Calves), Abdominals (Core), Glutes, Lower Back, Forearms, Neck, Full Body.\n" +
-                        "\n" +
-                        "Provide the following information in the format specified and don't explicately write title, just seperate by |:\n" +
-                        "Title | Description | Difficulty | Areas of Focus | Number of Reps | Number of Sets" +
-                        "\nKeep in mind this workout will be done by a human being and the workout shouldn't be vague. Furthermore the number of" +
-                        " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive.";
-                callAPI(customPrompt); // testing
-                //Flip Flop Pushups | Get into a pushup position and alternate between a regular and inverted pushup | 2 | Chest, Shoulders | 8 | 3
-                //Jump Rope Burpees | Jump rope for 30 seconds, perform 10 burpees, repeat 3 times | 3 | Full Body | 30 | 3
-            }
-        });
-
 
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -292,77 +268,5 @@ public class addWorkout extends AppCompatActivity {
         return new String(Character.toChars(unicode));
     }
 
-
-    private void callAPI(String query) {
-        // Setting text for the question.
-        // Creating a queue for the request queue.
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        // Creating a JSON object.
-        JSONObject jsonObject = new JSONObject();
-        // Adding params to JSON object.
-        try {
-            jsonObject.put("model", "text-davinci-003");
-            jsonObject.put("prompt", query);
-            jsonObject.put("temperature", 0.75);
-            jsonObject.put("max_tokens", 100);
-            jsonObject.put("top_p", 1);
-            jsonObject.put("frequency_penalty", 0.0);
-            jsonObject.put("presence_penalty", 0.0);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Making JSON object request.
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // Getting response message and setting it to text view.
-                            String responseMsg = response.getJSONArray("choices").getJSONObject(0).getString("text");
-                            Log.e("GPT MSG:", responseMsg);
-                            Toast.makeText(addWorkout.this, responseMsg, Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                // Adding on error listener.
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("TAGAPI", "Error is : " + error.getMessage() + "\n" + error);
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                // Adding headers.
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer " + accessToken);
-                return params;
-            }
-        };
-
-        // Adding retry policy for the request.
-        postRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-                // You can implement your retry logic here if needed.
-            }
-        });
-        // Adding the request to the queue.
-        queue.add(postRequest);
-    }
 
 }
