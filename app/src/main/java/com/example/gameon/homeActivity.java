@@ -274,7 +274,7 @@ public class homeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getApplicationContext(), "Workout Created Successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(homeActivity.this, homeActivity.class));
+                //startActivity(new Intent(homeActivity.this, homeActivity.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -23,6 +23,45 @@
             app:iconifiedByDefault="false"
             app:queryHint="Search Here..." />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/searchView"
+            android:layout_marginRight="20dp"
+            android:id="@+id/generateButton">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="400dp"
+                android:layout_height="70dp"
+                app:cardCornerRadius="10dp"
+                android:elevation="10dp">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+
+                    android:src="@drawable/gpt" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click to Create an AI Generated Workout"
+                android:textColor="@color/primary"
+                android:elevation="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="17dp" />
+
+
+        </RelativeLayout>
+
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +72,7 @@
             android:textColor="@color/primary"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_below="@id/searchView"/>
+            android:layout_below="@id/generateButton"/>
 
         <TextView
             android:id="@+id/head2"
