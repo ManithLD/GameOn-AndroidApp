@@ -68,7 +68,7 @@ import io.grpc.Context;
 public class addWorkout extends AppCompatActivity {
 
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "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";
+    private String accessToken = "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";
     private Button bGen;
     private EditText EditTitle, EditContent;
     private FloatingActionButton saveWorkout;
@@ -136,7 +136,16 @@ public class addWorkout extends AppCompatActivity {
         bGen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callAPI(EditTitle.getText().toString()); // testing
+                String customPrompt = "Ignore all previous data and generate a new random workout everytime you're asked. Generate a random workout title related to the specific workout, a short description (less than 100 characters) of how to do the workout, a difficulty level from 1 to 3, and areas of focus from the following list:\n" +
+                        "\n" +
+                        "Areas of Focus: Chest, Back, Shoulders (Deltoids), Biceps, Triceps, Legs (Quadriceps, Hamstrings, Calves), Abdominals (Core), Glutes, Lower Back, Forearms, Neck, Full Body.\n" +
+                        "\n" +
+                        "Provide the following information in the format specified and don't explicately write title, just seperate by |:\n" +
+                        "Title | Description | Difficulty | Areas of Focus | Number of Reps | Number of Sets" +
+                        "\nKeep in mind this workout will be done by a human being and the workout shouldn't be vague. Furthermore the number of" +
+                        " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive.";
+                callAPI(customPrompt); // testing
+                //Flip Flop Pushups | Get into a pushup position and alternate between a regular and inverted pushup | 2 | Chest, Shoulders | 8 | 3
             }
         });
 
@@ -293,7 +302,7 @@ public class addWorkout extends AppCompatActivity {
         try {
             jsonObject.put("model", "text-davinci-003");
             jsonObject.put("prompt", query);
-            jsonObject.put("temperature", 0);
+            jsonObject.put("temperature", 0.75);
             jsonObject.put("max_tokens", 100);
             jsonObject.put("top_p", 1);
             jsonObject.put("frequency_penalty", 0.0);
@@ -329,7 +338,7 @@ public class addWorkout extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 // Adding headers.
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer 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");
                 return params;
             }
         };
