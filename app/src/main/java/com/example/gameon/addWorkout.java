@@ -68,7 +68,7 @@ import io.grpc.Context;
 public class addWorkout extends AppCompatActivity {
 
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "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";
+    private String accessToken = "";
     private Button bGen;
     private EditText EditTitle, EditContent;
     private FloatingActionButton saveWorkout;
@@ -146,6 +146,7 @@ public class addWorkout extends AppCompatActivity {
                         " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive.";
                 callAPI(customPrompt); // testing
                 //Flip Flop Pushups | Get into a pushup position and alternate between a regular and inverted pushup | 2 | Chest, Shoulders | 8 | 3
+                //Jump Rope Burpees | Jump rope for 30 seconds, perform 10 burpees, repeat 3 times | 3 | Full Body | 30 | 3
             }
         });
 
@@ -338,7 +339,7 @@ public class addWorkout extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 // Adding headers.
                 params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer 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");
+                params.put("Authorization", "Bearer " + accessToken);
                 return params;
             }
         };
