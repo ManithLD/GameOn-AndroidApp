@@ -51,16 +51,16 @@ import java.util.Map;
 public class homeFragment extends Fragment {
 
     private FirebaseAuth auth;
-    FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser;
     View root;
-    RecyclerView recyclerView;
-    FirebaseFirestore firebaseFirestore;
-    workoutAdapter adapter;
-    StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private RecyclerView recyclerView;
+    private FirebaseFirestore firebaseFirestore;
+    private workoutAdapter adapter;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private SearchView searchView;
     private RelativeLayout generateButton;
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "";
+    private String accessToken = "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";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

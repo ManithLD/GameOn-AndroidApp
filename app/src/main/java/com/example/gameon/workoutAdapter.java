@@ -26,7 +26,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, workoutAdapter.workoutViewHolder> {
@@ -134,6 +136,28 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
                 popupMenu.getMenu().add("Make Public").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                        DocumentReference documentReference = firebaseFirestore
+                                .collection("explore").document();
+                        Map<String, Object> workout = new HashMap<>();
+                        workout.put("title", model.getTitle());
+                        workout.put("content", model.getContent());
+                        workout.put("aof", model.getAof());
+                        workout.put("difficulty", model.getDifficulty());
+                        workout.put("reps", model.getReps());
+                        workout.put("sets", model.getSets());
+                        workout.put("ID", firebaseUser.getUid());
+
+                        documentReference.set(workout).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(context, "Workout made public Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, "Failed to make workout public", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         return false;
                     }
                 });
