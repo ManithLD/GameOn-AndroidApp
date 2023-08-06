@@ -131,6 +131,13 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
                     }
                 });
 
+                popupMenu.getMenu().add("Make Public").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                        return false;
+                    }
+                });
+
                 popupMenu.show();
             }
         });

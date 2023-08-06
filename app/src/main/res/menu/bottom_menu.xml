@@ -7,9 +7,9 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/health"
-        android:title="Health"
-        android:icon="@drawable/ic_monitor"/>
+        android:id="@+id/explore"
+        android:title="Explore"
+        android:icon="@drawable/ic_explore"/>
 
     <item
         android:id="@+id/fab"
@@ -22,9 +22,9 @@
         android:icon="@drawable/ic_timer"/>
 
     <item
-        android:id="@+id/calendar"
-        android:title="Schedule"
-        android:icon="@drawable/ic_calendar"/>
+        android:id="@+id/health"
+        android:title="Health"
+        android:icon="@drawable/ic_monitor"/>
 
 
 </menu>
