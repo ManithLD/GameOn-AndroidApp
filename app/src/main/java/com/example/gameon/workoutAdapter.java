@@ -140,7 +140,7 @@ public class workoutAdapter extends FirestoreRecyclerAdapter<firebasemodel, work
                                 .collection("explore").document();
                         Map<String, Object> workout = new HashMap<>();
                         workout.put("title", model.getTitle());
-                        workout.put("content", model.getContent());
+                        workout.put("content", "Shared by: " + firebaseUser.getUid() + "\n\n" + model.getContent());
                         workout.put("aof", model.getAof());
                         workout.put("difficulty", model.getDifficulty());
                         workout.put("reps", model.getReps());

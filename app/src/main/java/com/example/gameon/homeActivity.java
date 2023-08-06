@@ -52,7 +52,7 @@ public class homeActivity extends AppCompatActivity {
 
     BottomNavigationView nav;
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "";
+    private String accessToken = "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";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

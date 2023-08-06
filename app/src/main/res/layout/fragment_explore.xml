@@ -6,9 +6,13 @@
     android:background="@color/background"
     tools:context=".exploreFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="EXPLORE" />
+        android:id="@+id/recycler2"
+        android:layout_below="@id/head2"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>
