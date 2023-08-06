@@ -22,6 +22,7 @@ The Game On! project aims to develop a user-friendly app that offers a straightf
 - User data management via Firebase
 - Add/Edit custom workouts then save them into the user account.
 - Access OpenAI's API to generate workouts
+- Public explore page with shared workouts
 
 ### Under-development Features:
 - **Track steps and other health data for convenience.**
