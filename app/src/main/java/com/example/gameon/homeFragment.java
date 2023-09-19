@@ -60,7 +60,7 @@ public class homeFragment extends Fragment {
     private SearchView searchView;
     private RelativeLayout generateButton;
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "";
+    private String accessToken = "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";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
