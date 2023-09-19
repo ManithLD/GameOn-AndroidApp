@@ -97,7 +97,9 @@ public class homeFragment extends Fragment {
                 "Provide the following information in the format specified and don't explicately write title, description, difficulty, areas of focus, number of reps, or number of sets, include only the generated values, just seperate by |:\n" +
                 "Title | Description | Difficulty | Areas of Focus | Number of Reps | Number of Sets" +
                 "\nKeep in mind this workout will be done by a human being and the workout shouldn't be vague. Furthermore the number of" +
-                " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive." ;
+                " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive. Do not write the words Difficulty, Number of Reps or Number of Sets in your output";
+
+
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,6 +201,7 @@ public class homeFragment extends Fragment {
                             temp = responseMsg.indexOf("|") - 1;
                             int reps = Integer.parseInt(responseMsg.substring(0, temp));
                             responseMsg = responseMsg.substring(temp + 3);
+                            Log.e("CHECK", responseMsg.substring(0, responseMsg.length()));
                             int sets = Integer.parseInt(responseMsg.substring(0, responseMsg.length()));
                             addGeneratedWorkout(title, content, difficulty, aof, reps, sets);
                         } catch (JSONException e) {
