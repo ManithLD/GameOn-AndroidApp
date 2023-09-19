@@ -60,7 +60,7 @@ public class homeFragment extends Fragment {
     private SearchView searchView;
     private RelativeLayout generateButton;
     private String url = "https://api.openai.com/v1/completions";
-    private String accessToken = "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";
+    private String accessToken = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +94,10 @@ public class homeFragment extends Fragment {
                 "\n" +
                 "Areas of Focus: Chest, Back, Shoulders (Deltoids), Biceps, Triceps, Legs (Quadriceps, Hamstrings, Calves), Abdominals (Core), Glutes, Lower Back, Forearms, Neck, Full Body.\n" +
                 "\n" +
-                "Provide the following information in the format specified and don't explicately write title, just seperate by |:\n" +
+                "Provide the following information in the format specified and don't explicately write title, description, difficulty, areas of focus, number of reps, or number of sets, include only the generated values, just seperate by |:\n" +
                 "Title | Description | Difficulty | Areas of Focus | Number of Reps | Number of Sets" +
                 "\nKeep in mind this workout will be done by a human being and the workout shouldn't be vague. Furthermore the number of" +
-                " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive.";
+                " reps and sets should not be a range but a single integer. Reps between 1 and 100 inclusive and sets between 1 and 50 inclusive." ;
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,7 +160,7 @@ public class homeFragment extends Fragment {
         JSONObject jsonObject = new JSONObject();
         // Adding params to JSON object.
         try {
-            jsonObject.put("model", "text-davinci-003");
+            jsonObject.put("model", "gpt-3.5-turbo-instruct");
             jsonObject.put("prompt", query);
             jsonObject.put("temperature", 0.75);
             jsonObject.put("max_tokens", 100);
@@ -266,6 +266,7 @@ public class homeFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Log.e("ERROR", e.getMessage());
                 Toast.makeText(getActivity(), "Failed to Create Workout", Toast.LENGTH_SHORT).show();
             }
         });
